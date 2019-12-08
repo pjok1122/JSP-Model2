@@ -10,7 +10,7 @@
 <body>
 <div class="container">
 	<jsp:include page="navBar.jsp"></jsp:include>
-	<h1 class="mt-5 text-center"> 글 목록</h1>
+	<h1 class="mt-5 text-center">글 목록</h1>
 	<div>
 		<ul class="list-group">
 			<ul class="list-group list-group-horizontal-sm center">

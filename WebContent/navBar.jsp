@@ -6,10 +6,10 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	    	<li class="nav-item">
-	      		<a class="nav-link" href="login.jsp">Sign in</a>
+	      		<a class="nav-link" href="login.do">Sign in</a>
 	    </li>
 	        <li class="nav-item">
-	        	<a class="nav-link" href="register.jsp">Sign up</a>
+	        	<a class="nav-link" href="register.do">Sign up</a>
 	      </li>
 	    </ul>
 	</div>

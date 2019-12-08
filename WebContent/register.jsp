@@ -16,23 +16,28 @@
 	</div>
 	<div class="row mt-5">
 	    <div class="col-12">
-	        <form method="POST" action=".">
+	        <form method="POST" action="register.do">
 	            <div class="form-group">
-	                <label for="username">사용자 이름</label>
-	                <input type="text" class="form-control" id="username"  placeholder="사용자 이름" name="username">
+	                <label for="id">* 아이디</label>
+	                <input type="text" class="form-control" id="id"  placeholder="아이디" name="id" value="may">
 	            </div>
 	            <div class="form-group">
-	                <label for="useremail">사용자 이메일</label>
-	                <input type="email" class="form-control" id="useremail"  placeholder="사용자 이메일" name="useremail">
-	                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	                <label for="password">* 비밀번호</label>
+	                <input type="password" class="form-control" id="password"  placeholder="비밀번호" name="password" value="1234">
 	            </div>
 	            <div class="form-group">
-	                <label for="password">비밀번호</label>
-	                <input type="password" class="form-control" id="password" placeholder="비밀번호" name="password">
+	                <label for="re_password">* 비밀번호 확인</label>
+	                <input type="password" class="form-control" id="re_password" placeholder="비밀번호 확인" name="re_password" value="1234">
 	            </div>
 	            <div class="form-group">
-	                <label for="re-password">비밀번호 확인</label>
-	                <input type="password" class="form-control" id="re-password" placeholder="비밀번호 확인" name="re-password">
+	                <label for="name">이름</label>
+	                <input type="text" class="form-control" id="name" placeholder="이름" name="name" value="may">
+	            </div>
+	            
+	            <div class="form-group">
+	                <label for="gender">성별 : </label>
+	                <input type="radio" id="gender" name="gender" value="0"> 남성
+	                <input type="radio" id="gender" name="gender" value="1"> 여성	               
 	            </div>
 	            <button type="submit" class="btn btn-primary">등록</button>
 	        </form>

@@ -12,7 +12,7 @@
 		<div class="row mt-5">
 			<div class="col-12">
 			<h1 class="text-center"> Login</h1>
-				<form action="login.do" method="POST">
+				<form action="loginAuth.do" method="POST">
 					<div class="form-group">
 						<label for="email"><small>이메일</small> </label>
 						<input type="email" id="email" placeholder="email" class="form-control">
