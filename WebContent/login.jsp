@@ -11,16 +11,17 @@
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col-12">
-			<h1 class="text-center"> Login</h1>
-				<form action="loginAuth.do" method="POST">
+			<h1 class="text-center">Login</h1>
+				<form action="login.do" method="POST">
 					<div class="form-group">
-						<label for="email"><small>이메일</small> </label>
-						<input type="email" id="email" placeholder="email" class="form-control">
+						<label for="id"><small>아이디</small> </label>
+						<input type="text" id="id" placeholder="id" class="form-control" name="id">
 					</div>
 					<div class="form-group">
 						<label for="pw"><small>비밀번호</small></label>
-						<input type="password" id="pw" placeholder="password" class="form-control">
+						<input type="password" id="pw" placeholder="password" class="form-control" name="password">
 					</div>
+					<div><small style="color:red;">${requestScope.error }</small></div>
 					<button type="submit" class="btn btn-primary">로그인</button>
 				</form>
 			</div>

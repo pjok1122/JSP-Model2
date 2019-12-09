@@ -9,29 +9,33 @@
 </head>
 <body>
 <div class="container">
+	<%@ include file="navBar.jsp" %>
 	<div class="row mt-5">
 	    <div class="col-12 text-center">
 	        <h1>회원가입</h1>
 	    </div>
 	</div>
+	<div class="container">
 	<div class="row mt-5">
 	    <div class="col-12">
 	        <form method="POST" action="register.do">
 	            <div class="form-group">
 	                <label for="id">* 아이디</label>
-	                <input type="text" class="form-control" id="id"  placeholder="아이디" name="id" value="may">
+	                <input type="text" class="form-control" id="id"  placeholder="아이디" name="id">
+	            	<small style="color:red;">${requestScope.id_error} </small>
 	            </div>
 	            <div class="form-group">
 	                <label for="password">* 비밀번호</label>
-	                <input type="password" class="form-control" id="password"  placeholder="비밀번호" name="password" value="1234">
+	                <input type="password" class="form-control" id="password"  placeholder="비밀번호" name="password">
 	            </div>
 	            <div class="form-group">
 	                <label for="re_password">* 비밀번호 확인</label>
-	                <input type="password" class="form-control" id="re_password" placeholder="비밀번호 확인" name="re_password" value="1234">
+	                <input type="password" class="form-control" id="re_password" placeholder="비밀번호 확인" name="re_password">
+	            	<small style="color:red;">${requestScope.pw_error} </small>
 	            </div>
 	            <div class="form-group">
 	                <label for="name">이름</label>
-	                <input type="text" class="form-control" id="name" placeholder="이름" name="name" value="may">
+	                <input type="text" class="form-control" id="name" placeholder="이름" name="name">
 	            </div>
 	            
 	            <div class="form-group">
@@ -43,6 +47,7 @@
 	        </form>
 	    </div>
 	</div>
+</div>
 </div>
 </body>
 </html>

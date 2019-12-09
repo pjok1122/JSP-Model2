@@ -9,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.dev.db.DBManager;
 import com.dev.dto.UserDTO;
 
 public class UserDAO {
@@ -35,23 +36,18 @@ public class UserDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			
-			int seq = rs.getInt("seq");
-			String password = rs.getString("password");
-			String name = rs.getString("name");
-			int gender = rs.getInt("gender");
-			String salt = rs.getString("salt");
-			
-			uDTO = new UserDTO(seq, id, password, name ,gender, salt);
+			if(rs.next()) {
+				int seq = rs.getInt("seq");
+				String password = rs.getString("password");
+				String name = rs.getString("name");
+				int gender = rs.getInt("gender");
+				String salt = rs.getString("salt");
+				uDTO = new UserDTO(seq, id, password, name ,gender, salt);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs!=null) rs.close();
-				if (pstmt!=null) pstmt.close();
-				if (conn!=null) conn.close();
-			} catch(Exception e2){
-				e2.printStackTrace();
-			}
+			DBManager.close(rs, pstmt, conn);
 		}
 		
 		return uDTO;
