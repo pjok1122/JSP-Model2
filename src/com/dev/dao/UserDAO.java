@@ -13,16 +13,12 @@ import com.dev.db.DBManager;
 import com.dev.dto.UserDTO;
 
 public class UserDAO {
-	private DataSource dataSource;
-
+	DBManager dbManager;
+	
 	public UserDAO() {
-		try {
-			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/Mysql");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		dbManager = new DBManager();
 	}
+	
 	public UserDTO select(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -30,7 +26,7 @@ public class UserDAO {
 		UserDTO uDTO = null;
 	
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql ="SELECT * from user WHERE id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -47,18 +43,18 @@ public class UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(rs, pstmt, conn);
+			dbManager.close(rs, pstmt, conn);
 		}
 		
 		return uDTO;
 	}
-	public boolean registerUser(String id, String password, String name, int gender) {
+	public int registerUser(String id, String password, String name, int gender) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result =0;
 
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql = "INSERT INTO user(id,password,name,gender) VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -71,20 +67,9 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (pstmt!=null) pstmt.close();
-				if (conn!=null) conn.close();
-			} catch(Exception e2){
-				e2.printStackTrace();
-			}
+			dbManager.close(pstmt, conn);
 		}
 
-		if(result==0) {
-			System.out.println("회원가입 실패");
-			return false;
-		} else {
-			System.out.println("회원가입 성공");
-			return true;
-		}
+		return result;
 	}
 }

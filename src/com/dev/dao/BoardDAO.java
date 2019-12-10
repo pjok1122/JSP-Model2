@@ -15,35 +15,29 @@ import com.dev.dto.BoardListDTO;
 import com.dev.dto.UserDTO;
 
 public class BoardDAO {
-	private DataSource dataSource;
+	DBManager dbManager;
 
 	public BoardDAO() {
-		try {
-			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/Mysql");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		dbManager = new DBManager();
 	}
 	
 	public void write(int userSeq, String title, String content) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		int result = 0;
 		
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql = "INSERT INTO board(user_seq, title, content, registered_at) VALUES(?,?,?,NOW())";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userSeq);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
-			result = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(pstmt, conn);
+			dbManager.close(pstmt, conn);
 		}
 	}
 	
@@ -55,7 +49,7 @@ public class BoardDAO {
 		ArrayList<BoardListDTO> list = new ArrayList<BoardListDTO>();
 		
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql = "SELECT board.seq, title, content, id, registered_at, hit FROM board INNER JOIN user ON board.user_seq = user.seq";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -74,7 +68,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(rs, pstmt, conn);
+			dbManager.close(rs, pstmt, conn);
 		}
 		return list;
 	}
@@ -84,13 +78,13 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;	
 		BoardListDTO dto= null;
+		
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql ="SELECT board.seq, title, content, id, registered_at, hit FROM board INNER JOIN user ON board.user_seq = user.seq WHERE board.seq = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			rs = pstmt.executeQuery();
-			
 			
 			if(rs.next()) {
 				int bSeq = rs.getInt("board.seq");
@@ -105,7 +99,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(rs, pstmt, conn);
+			dbManager.close(rs, pstmt, conn);
 		}
 		
 		return dto;
@@ -115,15 +109,15 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql ="UPDATE board SET hit=hit+1 WHERE seq =?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
-			int result = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(pstmt, conn);
+			dbManager.close(pstmt, conn);
 		}
 	}
 
@@ -131,17 +125,17 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql ="UPDATE board SET title=?, content=? WHERE seq =?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
 			pstmt.setInt(3, seq);
-			int result = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(pstmt, conn);
+			dbManager.close(pstmt, conn);
 		}
 	}
 
@@ -149,15 +143,15 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = dataSource.getConnection();
+			conn = dbManager.getConnection();
 			String sql ="DELETE FROM board WHERE seq=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
-			int result = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(pstmt, conn);
+			dbManager.close(pstmt, conn);
 		}
 		
 	}

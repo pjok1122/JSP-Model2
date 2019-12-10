@@ -39,13 +39,13 @@ public class RegisterCommand implements Command {
 		else {
 			// DAO에게 계정 생성 질의하기.
 			String hashPassword = SHA256Util.sha256(password);
-			boolean result = false;
+			int result = 0;
 			
 			if(name.equals("")) name = null;
 			if(gender==null || gender.equals("")) gender ="2";
 			if(hashPassword!=null) result = uDAO.registerUser(id, hashPassword, name, Integer.parseInt(gender));
 			
-			if(result) {
+			if(result != 0) {
 				UserDTO uDTO = uDAO.select(id);
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", id);
